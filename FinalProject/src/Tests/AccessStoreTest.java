@@ -35,6 +35,7 @@ public class AccessStoreTest {
 	
 	@Test
 	public void accessTest() throws Exception {
+		
 		this.driver.navigate().to(this.locators.getProperty("petstore_url"));
 		
         HomePage homePage = new HomePage(driver, locators, waiter);
