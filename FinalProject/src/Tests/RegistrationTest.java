@@ -47,11 +47,11 @@ public class RegistrationTest {
 		
 		RegistrationPage registration = new RegistrationPage(driver, locators, waiter);
 		
-		int ID = 3;
+		int ID = 7;
 		
 		registration.goToRegistrationPage();
 		
-		registration.fillRegistration(7);
+		registration.fillRegistration(ID);
         registration.setLanguageByValue("japanese");
         registration.setFavoriteById(1);
         registration.clickOnMyListButton();
