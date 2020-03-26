@@ -272,6 +272,7 @@ public class RegistrationPage {
 		    this.setLanguageById(getRandomInteger(2, 1));
 		    this.setFavoriteById(getRandomInteger(5, 1));
 		    
+		    
 		    this.saveInformations();
 		    this.goToRegistrationPage();
 		    

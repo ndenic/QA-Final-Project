@@ -48,7 +48,6 @@ public class RegistrationTest {
 		RegistrationPage registration = new RegistrationPage(driver, locators, waiter);
 		
 		registration.goToRegistrationPage();
-		
 		registration.fillRegistration();        
 
 //		registration.clickOnMyListButton();
