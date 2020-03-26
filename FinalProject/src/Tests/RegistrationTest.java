@@ -47,18 +47,13 @@ public class RegistrationTest {
 		
 		RegistrationPage registration = new RegistrationPage(driver, locators, waiter);
 		
-		int ID = 7;
-		
 		registration.goToRegistrationPage();
 		
-		registration.fillRegistration(ID);
-        registration.setLanguageByValue("japanese");
-        registration.setFavoriteById(1);
-        registration.clickOnMyListButton();
-        registration.clickOnMyBannerButton();
-        registration.saveInformations();
-        
-        
+		registration.fillRegistration();        
+
+//		registration.clickOnMyListButton();
+//        registration.clickOnMyBannerButton();
+                
         Assert.assertTrue(registration.checkRegistraion());
         
         

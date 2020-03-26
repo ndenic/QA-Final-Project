@@ -1,6 +1,7 @@
 package Pages;
 
 import java.util.Properties;
+import java.util.Random;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -94,12 +95,12 @@ public class RegistrationPage {
 		this.getLastName().clear();
 		this.getLastName().sendKeys(lastName);
 	}
-	
-	//Email
+
+	// Email
 	public WebElement getEmail() {
 		return this.driver.findElement(By.xpath(this.locators.getProperty("email")));
 	}
-	
+
 	public void setEmail(String email) {
 		this.getEmail().clear();
 		this.getEmail().sendKeys(email);
@@ -179,100 +180,122 @@ public class RegistrationPage {
 	public WebElement getLanguage() {
 		return this.driver.findElement(By.xpath(this.locators.getProperty("language")));
 	}
+
 	public Select getLanguageSelect() {
 		return new Select(this.getLanguage());
 	}
+
 	public void setLanguageByValue(String value) {
 		this.getLanguageSelect().selectByValue(value);
 	}
+
 	public void setLanguageById(int id) {
 		this.getLanguageSelect().selectByIndex(id);
 	}
 
-	
-	//Select for favorite
+	// Select for favorite
 	public WebElement getFavorite() {
 		return this.driver.findElement(By.xpath(this.locators.getProperty("favorite")));
 	}
+
 	public Select getFavoriteSelect() {
 		return new Select(this.getFavorite());
 	}
+
 	public void setFavoriteByValue(String value) {
 		this.getFavoriteSelect().selectByValue(value);
 	}
+
 	public void setFavoriteById(int id) {
 		this.getFavoriteSelect().selectByIndex(id);
 	}
-	
-	//My list
+
+	// My list
 	public WebElement getMyListButton() {
 		return this.driver.findElement(By.xpath(this.locators.getProperty("my_list")));
 	}
+
 	public void clickOnMyListButton() {
 		this.getMyListButton().click();
 	}
-	
-	//My banner
+
+	// My banner
 	public WebElement getMyBannerButton() {
 		return this.driver.findElement(By.xpath(this.locators.getProperty("my_banner")));
 	}
+
 	public void clickOnMyBannerButton() {
 		this.getMyBannerButton().click();
 	}
-	
-	//Save button
+
+	// Save button
 	public WebElement getSaveButton() {
 		return this.driver.findElement(By.xpath(this.locators.getProperty("save")));
 	}
+
 	public void saveInformations() {
 		this.getSaveButton().click();
 	}
-	
-	//Exception message - 505
+
+	// Exception message - 505
 	public WebElement getExceptionMsg() {
-		//this message is only received if all required fields are not filled
+		// this message is only received if all required fields are not filled
 		return this.driver.findElement(By.xpath(this.locators.getProperty("exception_msg")));
 	}
-	
-	//Home page image
+
+	// Home page image
 	public WebElement getHomePageImg() {
 		return this.driver.findElement(By.xpath(this.locators.getProperty("homepage_img")));
 	}
 
-	// Registration 
-	public void fillRegistration(int ID) {
+	// Registration
+	public void fillRegistration() {
 		ExcelUtils excel = new ExcelUtils();
 		excel.setExcell(path);
 		excel.setWorkSheet(1);
 		
-		this.setUserId(excel.getDataAt(ID, 0));
-		this.setNewPassword(excel.getDataAt(ID, 1));
-		this.setRepeatPassword(excel.getDataAt(ID, 1));
-		this.setFirstName(excel.getDataAt(ID, 2));
-		this.setLastName(excel.getDataAt(ID, 3));
-		this.setEmail(excel.getDataAt(ID, 4));
-		this.setPhone(excel.getDataAt(ID, 5));
-		this.setAddress1(excel.getDataAt(ID, 6));
-		this.setAddress2(excel.getDataAt(ID, 7));
-		this.setCity(excel.getDataAt(ID, 8));
-		this.setState(excel.getDataAt(ID, 9));
-		this.setZip(excel.getDataAt(ID, 10));
-	    this.setCountry(excel.getDataAt(ID, 11));
-	}
+		for (int i = 1; i <= excel.getRowNumber(); i++) {
+			
+			this.setUserId(excel.getDataAt(i, 0));
+			this.setNewPassword(excel.getDataAt(i, 1));
+			this.setRepeatPassword(excel.getDataAt(i, 1));
+			this.setFirstName(excel.getDataAt(i, 2));
+			this.setLastName(excel.getDataAt(i, 3));
+			this.setEmail(excel.getDataAt(i, 4));
+			this.setPhone(excel.getDataAt(i, 5));
+			this.setAddress1(excel.getDataAt(i, 6));
+			this.setAddress2(excel.getDataAt(i, 7));
+			this.setCity(excel.getDataAt(i, 8));
+			this.setState(excel.getDataAt(i, 9));
+			this.setZip(excel.getDataAt(i, 10));
+		    this.setCountry(excel.getDataAt(i, 11));
+		    this.setLanguageById(getRandomInteger(2, 1));
+		    this.setFavoriteById(getRandomInteger(5, 1));
+		    
+		    this.saveInformations();
+		    this.goToRegistrationPage();
+		    
+		    
+		}
 	
-	//Check if registration is successfully saved
+	}
+
+	// Check if registration is successfully saved
 	public boolean checkRegistraion() {
-		boolean saved = false;	
-		try {	
-		if(this.getHomePageImg().isDisplayed()){
-		     saved = true;
-		    }
-		}catch(Exception e) {
+		boolean saved = false;
+		try {
+			if (this.getHomePageImg().isDisplayed()) {
+				saved = true;
+			}
+		} catch (Exception e) {
 			System.out.println("No such element!");
 		}
-		return saved;	
+		return saved;
 	}
-	
-	
-	
+
+	//Generate random numbers
+	private int getRandomInteger(int maximum, int minimum) {
+		return ((int) (Math.random() * (maximum - minimum))) + minimum;
+	}
+
 }
