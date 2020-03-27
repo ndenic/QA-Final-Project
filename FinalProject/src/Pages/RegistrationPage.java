@@ -1,20 +1,19 @@
 package Pages;
 
 import java.util.Properties;
-import java.util.Random;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import Utils.ExcelUtils;
+
 public class RegistrationPage {
 	private WebDriver driver;
 	private Properties locators;
 	private WebDriverWait waiter;
-//	private JavascriptExecutor jse;
 	private final String path = "data/pet-store-data.xlsx";
 
 	public RegistrationPage(WebDriver driver, Properties locators, WebDriverWait waiter) {
@@ -253,6 +252,7 @@ public class RegistrationPage {
 		ExcelUtils excel = new ExcelUtils();
 		excel.setExcell(path);
 		excel.setWorkSheet(1);
+		excel.setUniqueID();
 		
 		for (int i = 1; i <= excel.getRowNumber(); i++) {
 			
@@ -270,13 +270,10 @@ public class RegistrationPage {
 			this.setZip(excel.getDataAt(i, 10));
 		    this.setCountry(excel.getDataAt(i, 11));
 		    this.setLanguageById(getRandomInteger(2, 1));
-		    this.setFavoriteById(getRandomInteger(5, 1));
-		    
+		    this.setFavoriteById(getRandomInteger(5, 1));		    
 		    
 		    this.saveInformations();
 		    this.goToRegistrationPage();
-		    
-		    
 		}
 	
 	}
@@ -294,9 +291,10 @@ public class RegistrationPage {
 		return saved;
 	}
 
-	//Generate random numbers
+	//Generate random numbers 
 	private int getRandomInteger(int maximum, int minimum) {
 		return ((int) (Math.random() * (maximum - minimum))) + minimum;
 	}
+	
 
 }

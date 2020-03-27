@@ -51,7 +51,7 @@ public class RegistrationTest {
 		registration.fillRegistration();        
 
 //		registration.clickOnMyListButton();
-//        registration.clickOnMyBannerButton();
+//      registration.clickOnMyBannerButton();
                 
         Assert.assertTrue(registration.checkRegistraion());
         

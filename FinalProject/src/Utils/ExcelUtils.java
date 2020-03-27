@@ -1,4 +1,5 @@
-package Pages;
+package Utils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -9,11 +10,11 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-
 public class ExcelUtils {
 	private static XSSFWorkbook wb = null;
 	private static XSSFSheet sheet = null;
 	private static String excellPath;
+	private final String path = "data/pet-store-data.xlsx";
 
 	public static boolean setExcell(String path) {
 		if (wb != null) {
@@ -63,15 +64,14 @@ public class ExcelUtils {
 		}
 		return "";
 	}
-	
-	
+
 	public static String getDataAtNum(int row, int column) {
 		try {
 			XSSFRow r = sheet.getRow(row);
 			XSSFCell celija = r.getCell(column);
 			double br = celija.getNumericCellValue();
-			String rez= "";
-			rez = rez + (int)br;
+			String rez = "";
+			rez = rez + (int) br;
 			return rez;
 		} catch (NullPointerException e) {
 			System.out.println(e.toString());
@@ -82,7 +82,6 @@ public class ExcelUtils {
 		}
 		return "";
 	}
-
 
 	public static boolean setDataAt(int row, int column, String data) {
 		try {
@@ -104,12 +103,10 @@ public class ExcelUtils {
 			return false;
 		}
 	}
-	
-	
 
 	public static int getRowNumber() {
 		try {
-			
+
 			return sheet.getLastRowNum() + 1;
 		} catch (Exception e) {
 			System.out.println(e.toString());
@@ -131,6 +128,18 @@ public class ExcelUtils {
 			}
 		}
 		return true;
+	}
+
+	//Set unique ID using NanoIdUtils
+	public void setUniqueID() {
+		
+		this.setExcell(path);
+        this.setWorkSheet(1);
+		
+		for (int i = 1; i <= this.getRowNumber(); i++) {
+			this.setDataAt(i, 0, NanoIdUtils.randomNanoId());
+		}
+		
 	}
 
 }
