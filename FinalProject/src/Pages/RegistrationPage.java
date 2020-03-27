@@ -252,9 +252,10 @@ public class RegistrationPage {
 		ExcelUtils excel = new ExcelUtils();
 		excel.setExcell(path);
 		excel.setWorkSheet(1);
-		excel.setUniqueID();
 		
-		for (int i = 1; i <= excel.getRowNumber(); i++) {
+		excel.setUniqueID(); 
+		
+		for (int i = 1; i < excel.getRowNumber(); i++) {
 			
 			this.setUserId(excel.getDataAt(i, 0));
 			this.setNewPassword(excel.getDataAt(i, 1));
@@ -269,8 +270,8 @@ public class RegistrationPage {
 			this.setState(excel.getDataAt(i, 9));
 			this.setZip(excel.getDataAt(i, 10));
 		    this.setCountry(excel.getDataAt(i, 11));
-		    this.setLanguageById(getRandomInteger(2, 1));
-		    this.setFavoriteById(getRandomInteger(5, 1));		    
+		    this.setLanguageById(getRandomInteger(2, 0));
+		    this.setFavoriteById(getRandomInteger(5, 0));		    
 		    
 		    this.saveInformations();
 		    this.goToRegistrationPage();

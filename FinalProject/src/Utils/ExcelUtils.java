@@ -136,7 +136,7 @@ public class ExcelUtils {
 		this.setExcell(path);
         this.setWorkSheet(1);
 		
-		for (int i = 1; i <= this.getRowNumber(); i++) {
+		for (int i = 1; i < this.getRowNumber(); i++) {
 			this.setDataAt(i, 0, NanoIdUtils.randomNanoId());
 		}
 		

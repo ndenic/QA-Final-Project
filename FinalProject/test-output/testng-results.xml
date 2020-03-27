@@ -2,24 +2,24 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="54047" started-at="2020-03-26T17:33:30Z" finished-at="2020-03-26T17:34:24Z">
+  <suite name="Default suite" duration-ms="37692" started-at="2020-03-27T15:53:17Z" finished-at="2020-03-27T15:53:54Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="54047" started-at="2020-03-26T17:33:30Z" finished-at="2020-03-26T17:34:24Z">
-      <class name="Tests.RegistrationTest">
-        <test-method status="PASS" signature="setup()[pri:0, instance:Tests.RegistrationTest@c038203]" name="setup" is-config="true" duration-ms="9652" started-at="2020-03-26T17:33:30Z" finished-at="2020-03-26T17:33:39Z">
+    <test name="Default test" duration-ms="37692" started-at="2020-03-27T15:53:17Z" finished-at="2020-03-27T15:53:54Z">
+      <class name="Tests.SignInTest">
+        <test-method status="PASS" signature="setup()[pri:0, instance:Tests.SignInTest@c038203]" name="setup" is-config="true" duration-ms="9651" started-at="2020-03-27T15:53:17Z" finished-at="2020-03-27T15:53:26Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method status="PASS" signature="registrationTest()[pri:0, instance:Tests.RegistrationTest@c038203]" name="registrationTest" duration-ms="44344" started-at="2020-03-26T17:33:39Z" finished-at="2020-03-26T17:34:24Z">
+        <test-method status="PASS" signature="loginTest()[pri:0, instance:Tests.SignInTest@c038203]" name="loginTest" duration-ms="27986" started-at="2020-03-27T15:53:26Z" finished-at="2020-03-27T15:53:54Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- registrationTest -->
-        <test-method status="PASS" signature="afterClass()[pri:0, instance:Tests.RegistrationTest@c038203]" name="afterClass" is-config="true" duration-ms="37" started-at="2020-03-26T17:34:24Z" finished-at="2020-03-26T17:34:24Z">
+        </test-method> <!-- loginTest -->
+        <test-method status="PASS" signature="afterClass()[pri:0, instance:Tests.SignInTest@c038203]" name="afterClass" is-config="true" duration-ms="42" started-at="2020-03-27T15:53:54Z" finished-at="2020-03-27T15:53:54Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterClass -->
-      </class> <!-- Tests.RegistrationTest -->
+      </class> <!-- Tests.SignInTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
