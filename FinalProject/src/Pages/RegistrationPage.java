@@ -399,21 +399,5 @@ public class RegistrationPage {
 		return ((int) (Math.random() * (maximum - minimum))) + minimum;
 	}
 
-	// Method for checking URL validation
-	public int verifyURLStatus(String urlString) {
-		int status = 404;
-		try {
-			URL link = new URL(urlString);
-			HttpURLConnection hConn = null;
-			hConn = (HttpURLConnection) link.openConnection();
-			hConn.setRequestMethod("GET");
-			hConn.connect();
-			status = hConn.getResponseCode();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return status;
-
-	}
 
 }
