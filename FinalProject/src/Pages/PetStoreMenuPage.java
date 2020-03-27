@@ -140,13 +140,6 @@ public class PetStoreMenuPage {
     	return isDisplayed;
     }
     
-    
-    
-    
-    
-
-	
-	
 	//Method for checking URL validation
 	public int verifyURLStatus(String urlString) {
 		int status = 404;
