@@ -7,8 +7,8 @@ Final project on ITBootcamp
 *Apache POI 4.1.2
 
 # Enviroment
-*Google Chrome 80.0.3987.149 (Official Build) (64-bit) (cohort: Stable)
-*Windows 10 OS Version 1903 (Build 18362.720)
+Google Chrome 80.0.3987.149 (Official Build) (64-bit) (cohort: Stable)
+Windows 10 OS Version 1903 (Build 18362.720)
 
 
 
