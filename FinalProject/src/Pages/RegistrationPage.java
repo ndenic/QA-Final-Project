@@ -1,5 +1,8 @@
 package Pages;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Properties;
 
 import org.openqa.selenium.By;
@@ -40,6 +43,7 @@ public class RegistrationPage {
 		this.getRegistratio().click();
 	}
 
+	// Navigate to Registration page
 	public void goToRegistrationPage() {
 		clickOnSignIn();
 		clickOnRegisterNow();
@@ -236,27 +240,27 @@ public class RegistrationPage {
 		this.getSaveButton().click();
 	}
 
+	// Home page image
+	public WebElement getHomePageImage() {
+		return this.driver.findElement(By.xpath(this.locators.getProperty("homepage_img")));
+	}
+
 	// Exception message - 505
 	public WebElement getExceptionMsg() {
 		// this message is only received if all required fields are not filled
 		return this.driver.findElement(By.xpath(this.locators.getProperty("exception_msg")));
 	}
 
-	// Home page image
-	public WebElement getHomePageImg() {
-		return this.driver.findElement(By.xpath(this.locators.getProperty("homepage_img")));
-	}
-
-	// Registration
+	// Registration : Exptected result [Successful registration]
 	public void fillRegistration() {
 		ExcelUtils excel = new ExcelUtils();
 		excel.setExcell(path);
 		excel.setWorkSheet(1);
-		
-		excel.setUniqueID(); 
-		
+
+		excel.setUniqueID();
+
 		for (int i = 1; i < excel.getRowNumber(); i++) {
-			
+
 			this.setUserId(excel.getDataAt(i, 0));
 			this.setNewPassword(excel.getDataAt(i, 1));
 			this.setRepeatPassword(excel.getDataAt(i, 1));
@@ -269,21 +273,101 @@ public class RegistrationPage {
 			this.setCity(excel.getDataAt(i, 8));
 			this.setState(excel.getDataAt(i, 9));
 			this.setZip(excel.getDataAt(i, 10));
-		    this.setCountry(excel.getDataAt(i, 11));
-		    this.setLanguageById(getRandomInteger(2, 0));
-		    this.setFavoriteById(getRandomInteger(5, 0));		    
-		    
-		    this.saveInformations();
-		    this.goToRegistrationPage();
+			this.setCountry(excel.getDataAt(i, 11));
+			this.setLanguageById(getRandomInteger(2, 0));
+			this.setFavoriteById(getRandomInteger(5, 0));
+
+			this.saveInformations();
+			this.goToRegistrationPage();
 		}
-	
+
+	}
+
+	// Registration without PASSWORD : Expected result [Failed registration]
+	public void fillRegistrationWithoutPassword() {
+		ExcelUtils excel = new ExcelUtils();
+		excel.setExcell(path);
+		excel.setWorkSheet(1);
+
+		excel.setUniqueID();
+
+		// Clear fields from test before
+		this.getNewPassword().clear();
+		this.getRepeatPassword().clear();
+
+		for (int i = 1; i < excel.getRowNumber(); i++) {
+
+			this.setUserId(excel.getDataAt(i, 0));
+
+			this.setFirstName(excel.getDataAt(i, 2));
+			this.setLastName(excel.getDataAt(i, 3));
+			this.setEmail(excel.getDataAt(i, 4));
+			this.setPhone(excel.getDataAt(i, 5));
+			this.setAddress1(excel.getDataAt(i, 6));
+			this.setAddress2(excel.getDataAt(i, 7));
+			this.setCity(excel.getDataAt(i, 8));
+			this.setState(excel.getDataAt(i, 9));
+			this.setZip(excel.getDataAt(i, 10));
+			this.setCountry(excel.getDataAt(i, 11));
+			this.setLanguageById(getRandomInteger(2, 0));
+			this.setFavoriteById(getRandomInteger(5, 0));
+
+			this.saveInformations();
+			if (this.getSaveButton().isDisplayed()) {
+				break;
+			}
+			this.goToRegistrationPage();
+
+		}
+
+	}
+
+	// Registration without FIRST NAME : Expected result [Failed registration]
+	public void fillRegistrationWithoutFirstName() {
+		ExcelUtils excel = new ExcelUtils();
+		excel.setExcell(path);
+		excel.setWorkSheet(1);
+
+		excel.setUniqueID();
+
+		// Clear field from test before
+		this.getFirstName().clear();
+
+		for (int i = 1; i < excel.getRowNumber(); i++) {
+
+			this.setUserId(excel.getDataAt(i, 0));
+			this.setNewPassword(excel.getDataAt(i, 1));
+			this.setRepeatPassword(excel.getDataAt(i, 1));
+
+			this.setLastName(excel.getDataAt(i, 3));
+			this.setEmail(excel.getDataAt(i, 4));
+			this.setPhone(excel.getDataAt(i, 5));
+			this.setAddress1(excel.getDataAt(i, 6));
+			this.setAddress2(excel.getDataAt(i, 7));
+			this.setCity(excel.getDataAt(i, 8));
+			this.setState(excel.getDataAt(i, 9));
+			this.setZip(excel.getDataAt(i, 10));
+			this.setCountry(excel.getDataAt(i, 11));
+			this.setLanguageById(getRandomInteger(2, 0));
+			this.setFavoriteById(getRandomInteger(5, 0));
+
+			this.saveInformations();
+			
+			if(this.getExceptionMsg().isDisplayed()) {
+				break;
+			}
+			
+			this.goToRegistrationPage();
+			
+		}
+
 	}
 
 	// Check if registration is successfully saved
-	public boolean checkRegistraion() {
+	public boolean checkRegistration() {
 		boolean saved = false;
 		try {
-			if (this.getHomePageImg().isDisplayed()) {
+			if (this.getHomePageImage().isDisplayed()) {
 				saved = true;
 			}
 		} catch (Exception e) {
@@ -292,10 +376,44 @@ public class RegistrationPage {
 		return saved;
 	}
 
-	//Generate random numbers 
+	// Check if registration is not saved
+	public boolean checkRegistrationFailed() {
+		boolean failed = false;
+		if (this.getSaveButton().isDisplayed()) {
+			failed = true;
+		}
+		return failed;
+	}
+	
+	// Check for Interal Server Error 
+	public boolean checkForInteralServerError() {
+		boolean errorDisplayed = true;
+		if(this.getExceptionMsg().getText().contains("Error")) {
+			errorDisplayed = true;
+		}
+		return errorDisplayed;
+	}
+
+	// Generate random numbers
 	private int getRandomInteger(int maximum, int minimum) {
 		return ((int) (Math.random() * (maximum - minimum))) + minimum;
 	}
-	
+
+	// Method for checking URL validation
+	public int verifyURLStatus(String urlString) {
+		int status = 404;
+		try {
+			URL link = new URL(urlString);
+			HttpURLConnection hConn = null;
+			hConn = (HttpURLConnection) link.openConnection();
+			hConn.setRequestMethod("GET");
+			hConn.connect();
+			status = hConn.getResponseCode();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return status;
+
+	}
 
 }

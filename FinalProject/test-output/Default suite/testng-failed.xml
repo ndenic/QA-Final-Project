@@ -5,7 +5,7 @@
     <classes>
       <class name="Tests.RegistrationTest">
         <methods>
-          <include name="registrationTest"/>
+          <include name="registrationWithoutFirstNameTest"/>
           <include name="setup"/>
           <include name="afterClass"/>
         </methods>

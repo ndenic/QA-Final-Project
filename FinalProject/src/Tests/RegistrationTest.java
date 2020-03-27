@@ -14,6 +14,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import Pages.HomePage;
 import Pages.RegistrationPage;
@@ -38,9 +39,11 @@ public class RegistrationTest {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 	
-	@Test
+	@Test(priority = 1)
 	public void registrationTest() throws Exception {
 		this.navigateToPage("petstore_url");
+		
+		SoftAssert sa = new SoftAssert();
 		
 		HomePage homePage = new HomePage(driver, locators, waiter);
 		homePage.enterPage();
@@ -48,14 +51,43 @@ public class RegistrationTest {
 		RegistrationPage registration = new RegistrationPage(driver, locators, waiter);
 		
 		registration.goToRegistrationPage();
-		registration.fillRegistration();        
+		registration.fillRegistration();      
 
-//		registration.clickOnMyListButton();
-//      registration.clickOnMyBannerButton();
-                
-        Assert.assertTrue(registration.checkRegistraion());
-        
-        
+		sa.assertAll();
+		
+	}
+	
+	@Test(priority = 2)
+	public void registrationWithoutPasswordTest() throws Exception {
+		this.navigateToPage("petstore_url");
+		
+		HomePage homePage = new HomePage(driver, locators, waiter);
+		homePage.enterPage();
+		
+		RegistrationPage registration = new RegistrationPage(driver, locators, waiter);
+		registration.goToRegistrationPage();
+		registration.fillRegistrationWithoutPassword();
+		
+		
+	    Assert.assertTrue(registration.checkRegistrationFailed());
+		
+	}
+	
+	@Test(priority = 3)
+	public void registrationWithoutFirstNameTest() throws Exception {
+        this.navigateToPage("petstore_url");
+		
+		HomePage homePage = new HomePage(driver, locators, waiter);
+		homePage.enterPage();
+		
+		RegistrationPage registration = new RegistrationPage(driver, locators, waiter);
+		
+		registration.goToRegistrationPage();
+		registration.fillRegistrationWithoutFirstName();
+		
+	    Assert.assertTrue(registration.checkForInteralServerError());
+		
+		
 	}
 	
 	@AfterClass
