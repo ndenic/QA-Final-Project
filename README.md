@@ -1,4 +1,4 @@
-# FinalProject
+# FinalProject :jp:
 Final project on ITBootcamp
 
 # Used frameworks
