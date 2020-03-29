@@ -1,4 +1,4 @@
-# FinalProject :jp:
+# FinalProject :dart:
 Final project on ITBootcamp
 
 # Used frameworks
