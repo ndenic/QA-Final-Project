@@ -1,6 +1,5 @@
 package Pages;
 
-import java.util.List;
 import java.util.Properties;
 
 import org.openqa.selenium.By;
@@ -19,7 +18,7 @@ public class StoreItemPage {
 		this.waiter = waiter;
 	}
 	
-	// Quick links
+	// Add to cart
 	public WebElement getAddToCart(){
 		return this.driver.findElement(By.xpath(this.locators.getProperty("add_to_cart")));
 	}

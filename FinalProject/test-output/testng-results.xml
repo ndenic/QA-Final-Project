@@ -2,24 +2,24 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="37692" started-at="2020-03-27T15:53:17Z" finished-at="2020-03-27T15:53:54Z">
+  <suite name="Default suite" duration-ms="14858" started-at="2020-03-30T16:54:32Z" finished-at="2020-03-30T16:54:47Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="37692" started-at="2020-03-27T15:53:17Z" finished-at="2020-03-27T15:53:54Z">
-      <class name="Tests.SignInTest">
-        <test-method status="PASS" signature="setup()[pri:0, instance:Tests.SignInTest@c038203]" name="setup" is-config="true" duration-ms="9651" started-at="2020-03-27T15:53:17Z" finished-at="2020-03-27T15:53:26Z">
+    <test name="Default test" duration-ms="14858" started-at="2020-03-30T16:54:32Z" finished-at="2020-03-30T16:54:47Z">
+      <class name="Tests.CartTest">
+        <test-method status="PASS" signature="setup()[pri:0, instance:Tests.CartTest@c038203]" name="setup" is-config="true" duration-ms="9760" started-at="2020-03-30T16:54:32Z" finished-at="2020-03-30T16:54:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method status="PASS" signature="loginTest()[pri:0, instance:Tests.SignInTest@c038203]" name="loginTest" duration-ms="27986" started-at="2020-03-27T15:53:26Z" finished-at="2020-03-27T15:53:54Z">
+        <test-method status="PASS" signature="addAllProductsInCartTest()[pri:0, instance:Tests.CartTest@c038203]" name="addAllProductsInCartTest" duration-ms="5050" started-at="2020-03-30T16:54:42Z" finished-at="2020-03-30T16:54:47Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- loginTest -->
-        <test-method status="PASS" signature="afterClass()[pri:0, instance:Tests.SignInTest@c038203]" name="afterClass" is-config="true" duration-ms="42" started-at="2020-03-27T15:53:54Z" finished-at="2020-03-27T15:53:54Z">
+        </test-method> <!-- addAllProductsInCartTest -->
+        <test-method status="PASS" signature="afterClass()[pri:0, instance:Tests.CartTest@c038203]" name="afterClass" is-config="true" duration-ms="36" started-at="2020-03-30T16:54:47Z" finished-at="2020-03-30T16:54:47Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterClass -->
-      </class> <!-- Tests.SignInTest -->
+      </class> <!-- Tests.CartTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
