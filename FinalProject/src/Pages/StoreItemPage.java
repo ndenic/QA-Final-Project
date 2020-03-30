@@ -28,6 +28,4 @@ public class StoreItemPage {
 		this.getAddToCart().click();
 	}
 	
-	
-	
 }

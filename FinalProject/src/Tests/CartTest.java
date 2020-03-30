@@ -51,8 +51,7 @@ public class CartTest {
 		cart.openCart();
 		
 		// check if all products are added in cart
-		ExcelUtils excel = new ExcelUtils();
-		
+		ExcelUtils excel = new ExcelUtils();		
 		excel.setExcell(path);
 		excel.setWorkSheet(0);
 		
