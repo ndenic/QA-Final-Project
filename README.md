@@ -1,4 +1,4 @@
-# FinalProject
+# FinalProject :dart:
 Final project on ITBootcamp
 
 # Used frameworks
