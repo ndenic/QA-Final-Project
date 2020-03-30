@@ -47,6 +47,7 @@ public class CartPage {
 			this.driver.navigate().to(itemLink);
 			storeItem.clickOnAddToCart();
 			
+			
 		}
 			
 	}
