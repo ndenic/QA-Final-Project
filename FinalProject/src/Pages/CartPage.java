@@ -69,12 +69,30 @@ public class CartPage {
 		
 	}
 	
-	// Open cart
+	// Get cart 
 	public WebElement getCart() {
 		return this.driver.findElement(By.xpath(this.locators.getProperty("cart")));
 	}
+	
+	// Open cart
 	public void openCart() {
 		this.getCart().click();
+	}
+	
+	//Get empty cart
+	public WebElement getEmptyCartMessage() {
+		return this.driver.findElement(By.xpath(this.locators.getProperty("empty_cart")));
+	}
+	
+	// Check for a cookie
+	public boolean cookieCheck() {
+		boolean deleted = false;
+		
+		if(this.getEmptyCartMessage().getText().contains("empty")) {
+			deleted = true;
+		}
+		
+		return deleted;
 	}
 	
 	

@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -40,7 +41,7 @@ public class CartTest {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 	
-	@Test
+	@Test(priority = 1)
 	public void addAllProductsInCartTest() throws Exception {
 	
 		SoftAssert sa = new SoftAssert();
@@ -63,9 +64,21 @@ public class CartTest {
 		}
 		
 		sa.assertAll();
+
+	}
+	
+	@Test(priority = 2)
+	public void deleteCartCookieTest() throws Exception {
+		SoftAssert sa = new SoftAssert();
+		CartPage cart = new CartPage(driver, locators, waiter);
 		
+		cart.addToCart();
 		
+		cart.openCart();
 		
+		this.driver.manage().deleteCookieNamed(this.locators.getProperty("cookie"));
+		this.driver.navigate().refresh();
+		Assert.assertTrue(cart.cookieCheck());
 	}
 	
 	@AfterClass
