@@ -251,115 +251,24 @@ public class RegistrationPage {
 		return this.driver.findElement(By.xpath(this.locators.getProperty("exception_msg")));
 	}
 
-	// Registration : Exptected result [Successful registration]
-	public void fillRegistration() {
-		ExcelUtils excel = new ExcelUtils();
-		excel.setExcell(path);
-		excel.setWorkSheet(1);
+	// Fill registration form
+	public void setUser(String userId, String newPassword, String repeatPassword, String firstName, String lastName,
+			String email, String phone, String address1, String address2, String city, String state, String zip,
+			String country) {
 
-		excel.setUniqueID();
-
-		for (int i = 1; i < excel.getRowNumber(); i++) {
-
-			this.setUserId(excel.getDataAt(i, 0));
-			this.setNewPassword(excel.getDataAt(i, 1));
-			this.setRepeatPassword(excel.getDataAt(i, 1));
-			this.setFirstName(excel.getDataAt(i, 2));
-			this.setLastName(excel.getDataAt(i, 3));
-			this.setEmail(excel.getDataAt(i, 4));
-			this.setPhone(excel.getDataAt(i, 5));
-			this.setAddress1(excel.getDataAt(i, 6));
-			this.setAddress2(excel.getDataAt(i, 7));
-			this.setCity(excel.getDataAt(i, 8));
-			this.setState(excel.getDataAt(i, 9));
-			this.setZip(excel.getDataAt(i, 10));
-			this.setCountry(excel.getDataAt(i, 11));
-			this.setLanguageById(getRandomInteger(2, 0));
-			this.setFavoriteById(getRandomInteger(5, 0));
-
-			this.saveInformations();
-			this.goToRegistrationPage();
-		}
-
-	}
-
-	// Registration without PASSWORD : Expected result [Failed registration]
-	public void fillRegistrationWithoutPassword() {
-		ExcelUtils excel = new ExcelUtils();
-		excel.setExcell(path);
-		excel.setWorkSheet(1);
-
-		excel.setUniqueID();
-
-		// Clear fields from test before
-		this.getNewPassword().clear();
-		this.getRepeatPassword().clear();
-
-		for (int i = 1; i < excel.getRowNumber(); i++) {
-
-			this.setUserId(excel.getDataAt(i, 0));
-
-			this.setFirstName(excel.getDataAt(i, 2));
-			this.setLastName(excel.getDataAt(i, 3));
-			this.setEmail(excel.getDataAt(i, 4));
-			this.setPhone(excel.getDataAt(i, 5));
-			this.setAddress1(excel.getDataAt(i, 6));
-			this.setAddress2(excel.getDataAt(i, 7));
-			this.setCity(excel.getDataAt(i, 8));
-			this.setState(excel.getDataAt(i, 9));
-			this.setZip(excel.getDataAt(i, 10));
-			this.setCountry(excel.getDataAt(i, 11));
-			this.setLanguageById(getRandomInteger(2, 0));
-			this.setFavoriteById(getRandomInteger(5, 0));
-
-			this.saveInformations();
-			if (this.getSaveButton().isDisplayed()) {
-				break;
-			}
-			this.goToRegistrationPage();
-
-		}
-
-	}
-
-	// Registration without FIRST NAME : Expected result [Failed registration]
-	public void fillRegistrationWithoutFirstName() {
-		ExcelUtils excel = new ExcelUtils();
-		excel.setExcell(path);
-		excel.setWorkSheet(1);
-
-		excel.setUniqueID();
-
-		// Clear field from test before
-		this.getFirstName().clear();
-
-		for (int i = 1; i < excel.getRowNumber(); i++) {
-
-			this.setUserId(excel.getDataAt(i, 0));
-			this.setNewPassword(excel.getDataAt(i, 1));
-			this.setRepeatPassword(excel.getDataAt(i, 1));
-
-			this.setLastName(excel.getDataAt(i, 3));
-			this.setEmail(excel.getDataAt(i, 4));
-			this.setPhone(excel.getDataAt(i, 5));
-			this.setAddress1(excel.getDataAt(i, 6));
-			this.setAddress2(excel.getDataAt(i, 7));
-			this.setCity(excel.getDataAt(i, 8));
-			this.setState(excel.getDataAt(i, 9));
-			this.setZip(excel.getDataAt(i, 10));
-			this.setCountry(excel.getDataAt(i, 11));
-			this.setLanguageById(getRandomInteger(2, 0));
-			this.setFavoriteById(getRandomInteger(5, 0));
-
-			this.saveInformations();
-			
-			if(this.getExceptionMsg().isDisplayed()) {
-				break;
-			}
-			
-			this.goToRegistrationPage();
-			
-		}
+		this.setUserId(userId);
+		this.setNewPassword(newPassword);
+		this.setRepeatPassword(repeatPassword);
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
+		this.setEmail(email);
+		this.setPhone(phone);
+		this.setAddress1(address1);
+		this.setAddress2(address2);
+		this.setCity(city);
+		this.setState(state);
+		this.setZip(zip);
+		this.setCountry(country);
 
 	}
 
@@ -372,6 +281,7 @@ public class RegistrationPage {
 			}
 		} catch (Exception e) {
 			System.out.println("No such element!");
+			saved = false;
 		}
 		return saved;
 	}
@@ -379,25 +289,29 @@ public class RegistrationPage {
 	// Check if registration is not saved
 	public boolean checkRegistrationFailed() {
 		boolean failed = false;
-		if (this.getSaveButton().isDisplayed()) {
-			failed = true;
+		try {
+			if (this.getSaveButton().isDisplayed()) {
+
+				failed = true;
+			}
+		} catch (Exception e) {
+			return failed;
 		}
 		return failed;
 	}
-	
-	// Check for Interal Server Error 
+
+	// Check for Interal Server Error
 	public boolean checkForInteralServerError() {
 		boolean errorDisplayed = true;
-		if(this.getExceptionMsg().getText().contains("Error")) {
+		if (this.getExceptionMsg().getText().contains("Error")) {
 			errorDisplayed = true;
 		}
 		return errorDisplayed;
 	}
 
 	// Generate random numbers
-	private int getRandomInteger(int maximum, int minimum) {
+	public int getRandomInteger(int maximum, int minimum) {
 		return ((int) (Math.random() * (maximum - minimum))) + minimum;
 	}
-
 
 }

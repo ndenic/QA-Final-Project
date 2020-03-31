@@ -18,12 +18,14 @@ import org.testng.asserts.SoftAssert;
 
 import Pages.HomePage;
 import Pages.RegistrationPage;
+import Utils.ExcelUtils;
 
 public class RegistrationTest {
 	private WebDriver driver;
 	private Properties locators;
 	private WebDriverWait waiter;
-
+	private final String path = "data/pet-store-data.xlsx";
+	
 	public void navigateToPage(String locator) {
          this.driver.navigate().to(this.locators.getProperty(locator));
 	}
@@ -41,17 +43,46 @@ public class RegistrationTest {
 	
 	@Test(priority = 1)
 	public void registrationTest() throws Exception {
-		this.navigateToPage("petstore_url");
+		this.navigateToPage("registration_url");
 		
 		SoftAssert sa = new SoftAssert();
-		
-		HomePage homePage = new HomePage(driver, locators, waiter);
-		homePage.enterPage();
-		
+
 		RegistrationPage registration = new RegistrationPage(driver, locators, waiter);
 		
-		registration.goToRegistrationPage();
-		registration.fillRegistration();      
+		ExcelUtils excel = new ExcelUtils();
+		excel.setExcell(path);
+		// Worksheet users
+		excel.setWorkSheet(1);
+
+		excel.setUniqueID();
+
+		for (int i = 1; i < excel.getRowNumber(); i++) {
+
+			String userId = excel.getDataAt(i, 0);
+			String newPassword = excel.getDataAt(i, 1);
+			String repeatPassword = excel.getDataAt(i, 1);
+			String firstName = excel.getDataAt(i, 2);
+			String lastName = excel.getDataAt(i, 3);
+			String email = excel.getDataAt(i, 4);
+			String phone = excel.getDataAt(i, 5);
+			String address1 = excel.getDataAt(i, 6);
+			String address2 = excel.getDataAt(i, 7);
+			String city = excel.getDataAt(i, 8);
+			String state = excel.getDataAt(i, 9);
+			String zip = excel.getDataAt(i, 10);
+			String country = excel.getDataAt(i, 11);
+			
+			registration.setLanguageById(registration.getRandomInteger(2, 0));
+			registration.setFavoriteById(registration.getRandomInteger(5, 0));
+			
+			registration.setUser(userId, newPassword, repeatPassword, firstName,
+					             lastName, email, phone, address1, address2, 
+					             city, state, zip, country);
+			
+			registration.saveInformations();
+			sa.assertTrue(registration.checkRegistration());
+			this.driver.navigate().back();
+		}    
 
 		sa.assertAll();
 		
@@ -59,36 +90,68 @@ public class RegistrationTest {
 	
 	@Test(priority = 2)
 	public void registrationWithoutPasswordTest() throws Exception {
-		this.navigateToPage("petstore_url");
-		
-		HomePage homePage = new HomePage(driver, locators, waiter);
-		homePage.enterPage();
-		
+		this.navigateToPage("registration_url");
+	
+		SoftAssert sa = new SoftAssert();
 		RegistrationPage registration = new RegistrationPage(driver, locators, waiter);
-		registration.goToRegistrationPage();
-		registration.fillRegistrationWithoutPassword();
 		
+		ExcelUtils excel = new ExcelUtils();
+		excel.setExcell(path);
+		// Worksheet users_without_password
+		excel.setWorkSheet(1);
 		
-	    Assert.assertTrue(registration.checkRegistrationFailed());
+		excel.setUniqueID();
+
+		for (int i = 1; i < excel.getRowNumber(); i++) {
+
+			String userId = excel.getDataAt(i, 0);
+			String newPassword = excel.getDataAt(i, 1);
+			String repeatPassword = excel.getDataAt(i, 1);
+			String firstName = excel.getDataAt(i, 2);
+			String lastName = excel.getDataAt(i, 3);
+			String email = excel.getDataAt(i, 4);
+			String phone = excel.getDataAt(i, 5);
+			String address1 = excel.getDataAt(i, 6);
+			String address2 = excel.getDataAt(i, 7);
+			String city = excel.getDataAt(i, 8);
+			String state = excel.getDataAt(i, 9);
+			String zip = excel.getDataAt(i, 10);
+			String country = excel.getDataAt(i, 11);
+			
+			registration.setLanguageById(registration.getRandomInteger(2, 0));
+			registration.setFavoriteById(registration.getRandomInteger(5, 0));
+			
+			registration.setUser(userId, newPassword, repeatPassword, firstName,
+					             lastName, email, phone, address1, address2, 
+					             city, state, zip, country);
+			
+			registration.saveInformations();
+			
+			// ako je prikazan save button znaci da je nakon pokusaja prosledjivanje informacija
+			// ostao na istoj strani 
+		    sa.assertTrue(registration.checkRegistration());
+			
+			
+			this.driver.navigate().back();
+		}    
+
+		sa.assertAll();
 		
 	}
 	
-	@Test(priority = 3)
+	/*@Test(priority = 3)
 	public void registrationWithoutFirstNameTest() throws Exception {
-        this.navigateToPage("petstore_url");
-		
-		HomePage homePage = new HomePage(driver, locators, waiter);
-		homePage.enterPage();
+        this.navigateToPage("registration_url");
+	
 		
 		RegistrationPage registration = new RegistrationPage(driver, locators, waiter);
 		
-		registration.goToRegistrationPage();
-		registration.fillRegistrationWithoutFirstName();
-		
-	    Assert.assertTrue(registration.checkForInteralServerError());
 		
 		
-	}
+	    registration.checkForInteralServerError();
+		
+		
+	}*/
 	
 	@AfterClass
 	public void afterClass() {

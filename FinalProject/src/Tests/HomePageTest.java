@@ -17,10 +17,14 @@ import org.testng.annotations.Test;
 
 import Pages.HomePage;
 
-public class AccessStoreTest {
+public class HomePageTest {
 	private WebDriver driver;
 	private Properties locators;
 	private WebDriverWait waiter;
+	
+	public void navigateToPage(String locator) {
+        this.driver.navigate().to(this.locators.getProperty(locator));
+	}
 
 	@BeforeClass
 	public void setup() throws FileNotFoundException, IOException {
@@ -35,8 +39,7 @@ public class AccessStoreTest {
 	
 	@Test
 	public void accessTest() throws Exception {
-		
-		this.driver.navigate().to(this.locators.getProperty("petstore_url"));
+		navigateToPage("petstore_url");
 		
         HomePage homePage = new HomePage(driver, locators, waiter);
         homePage.enterPage();
