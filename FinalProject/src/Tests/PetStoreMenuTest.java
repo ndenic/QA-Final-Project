@@ -4,12 +4,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Driver;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -49,8 +52,8 @@ public class PetStoreMenuTest {
 
 		PetStoreMenuPage petStore = new PetStoreMenuPage(driver, locators, waiter);
 
-		petStore.checkMenuContentLinks();
-		petStore.checkQucikMenuLinks();
+		sa.assertTrue(petStore.checkMenuContentLinks());
+		sa.assertTrue(petStore.checkQucikMenuLinks());
 
 		sa.assertAll();
 
@@ -66,13 +69,13 @@ public class PetStoreMenuTest {
 		homePage.enterPage();
 		
 		PetStoreMenuPage petStore = new PetStoreMenuPage(driver, locators, waiter);
-		petStore.checkCart();
-		petStore.checkSignIn();
-		petStore.checkHelp();
+		
+		sa.assertTrue(petStore.checkCart());
+		sa.assertTrue(petStore.checkSignIn());
+		sa.assertTrue(petStore.checkHelp());
 		
 		sa.assertAll();
-		
-		
+
 	}
 
 
@@ -84,11 +87,11 @@ public class PetStoreMenuTest {
 		homePage.enterPage();
 
 		String name = "reptiles";
-
+	
 		PetStoreMenuPage petStore = new PetStoreMenuPage(driver, locators, waiter);
-		petStore.clickOnLeftNavItem(name);
+		
+		Assert.assertTrue(petStore.clickOnLeftNavItem(name));
 
-		Thread.sleep(3000);
 	}
 
 	@AfterClass

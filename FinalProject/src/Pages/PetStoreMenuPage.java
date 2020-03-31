@@ -29,18 +29,20 @@ public class PetStoreMenuPage {
 		return this.driver.findElements(By.xpath(this.locators.getProperty("left_side_nav")));
 	}
 
-	//Click on one of navigation item
-	public void clickOnLeftNavItem(String name) {
-		List<WebElement> items = this.getLeftSideNav();
+	//Click on one of navigation item 
+	public boolean clickOnLeftNavItem(String name) {
+		List<WebElement> items = this.getLeftSideNav();		
+		boolean clicked = false;	
 		jse = (JavascriptExecutor) driver;
 		for (int i = 0; i < items.size(); i++) {
 			String item = items.get(i).getAttribute("href").toLowerCase();
 			if (item.contains(name)) {
 				jse.executeScript("arguments[0].click()", items.get(i));
+				clicked = true;
 				break;
 			}
-
 		}
+		return clicked;
 	}
 	
 	//Getter for menu contnent
