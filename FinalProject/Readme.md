@@ -1,5 +1,5 @@
 # Final project :dart:
-Web test automation project using Eclipse IDE, Java, TestNG, Selenium and Page Object Model (POM)
+Web test automation project using Eclipse IDE, Java, Apache POI, TestNG, Selenium and Page Object Model (POM)
 
 ## Test subject 
 JPetStore website https://petstore.octoperf.com/
