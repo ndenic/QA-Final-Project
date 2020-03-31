@@ -41,7 +41,7 @@ public class RegistrationTest {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 	
-	@Test(priority = 1)
+    @Test(priority = 1)
 	public void registrationTest() throws Exception {
 		this.navigateToPage("registration_url");
 		
@@ -50,27 +50,27 @@ public class RegistrationTest {
 		RegistrationPage registration = new RegistrationPage(driver, locators, waiter);
 		
 		ExcelUtils excel = new ExcelUtils();
-		excel.setExcell(path);
+		ExcelUtils.setExcell(path);
 		// Worksheet users
-		excel.setWorkSheet(1);
+		ExcelUtils.setWorkSheet(1);
 
 		excel.setUniqueID();
 
 		for (int i = 1; i < excel.getRowNumber(); i++) {
 
-			String userId = excel.getDataAt(i, 0);
-			String newPassword = excel.getDataAt(i, 1);
-			String repeatPassword = excel.getDataAt(i, 1);
-			String firstName = excel.getDataAt(i, 2);
-			String lastName = excel.getDataAt(i, 3);
-			String email = excel.getDataAt(i, 4);
-			String phone = excel.getDataAt(i, 5);
-			String address1 = excel.getDataAt(i, 6);
-			String address2 = excel.getDataAt(i, 7);
-			String city = excel.getDataAt(i, 8);
-			String state = excel.getDataAt(i, 9);
-			String zip = excel.getDataAt(i, 10);
-			String country = excel.getDataAt(i, 11);
+			String userId = ExcelUtils.getDataAt(i, 0);
+			String newPassword = ExcelUtils.getDataAt(i, 1);
+			String repeatPassword = ExcelUtils.getDataAt(i, 1);
+			String firstName = ExcelUtils.getDataAt(i, 2);
+			String lastName = ExcelUtils.getDataAt(i, 3);
+			String email = ExcelUtils.getDataAt(i, 4);
+			String phone = ExcelUtils.getDataAt(i, 5);
+			String address1 = ExcelUtils.getDataAt(i, 6);
+			String address2 = ExcelUtils.getDataAt(i, 7);
+			String city = ExcelUtils.getDataAt(i, 8);
+			String state = ExcelUtils.getDataAt(i, 9);
+			String zip = ExcelUtils.getDataAt(i, 10);
+			String country = ExcelUtils.getDataAt(i, 11);
 			
 			registration.setLanguageById(registration.getRandomInteger(2, 0));
 			registration.setFavoriteById(registration.getRandomInteger(5, 0));
@@ -87,7 +87,7 @@ public class RegistrationTest {
 		sa.assertAll();
 		
 	}
-	
+	/*
 	@Test(priority = 2)
 	public void registrationWithoutPasswordTest() throws Exception {
 		this.navigateToPage("registration_url");
@@ -96,27 +96,27 @@ public class RegistrationTest {
 		RegistrationPage registration = new RegistrationPage(driver, locators, waiter);
 		
 		ExcelUtils excel = new ExcelUtils();
-		excel.setExcell(path);
+		ExcelUtils.setExcell(path);
 		// Worksheet users_without_password
-		excel.setWorkSheet(2);
+		ExcelUtils.setWorkSheet(2);
 		
 		excel.setUniqueID();
 
 		for (int i = 1; i < excel.getRowNumber(); i++) {
 
-			String userId = excel.getDataAt(i, 0);
-			String newPassword = excel.getDataAt(i, 1);
-			String repeatPassword = excel.getDataAt(i, 1);
-			String firstName = excel.getDataAt(i, 2);
-			String lastName = excel.getDataAt(i, 3);
-			String email = excel.getDataAt(i, 4);
-			String phone = excel.getDataAt(i, 5);
-			String address1 = excel.getDataAt(i, 6);
-			String address2 = excel.getDataAt(i, 7);
-			String city = excel.getDataAt(i, 8);
-			String state = excel.getDataAt(i, 9);
-			String zip = excel.getDataAt(i, 10);
-			String country = excel.getDataAt(i, 11);
+			String userId = ExcelUtils.getDataAt(i, 0);
+			String newPassword = ExcelUtils.getDataAt(i, 1);
+			String repeatPassword = ExcelUtils.getDataAt(i, 1);
+			String firstName = ExcelUtils.getDataAt(i, 2);
+			String lastName = ExcelUtils.getDataAt(i, 3);
+			String email = ExcelUtils.getDataAt(i, 4);
+			String phone = ExcelUtils.getDataAt(i, 5);
+			String address1 = ExcelUtils.getDataAt(i, 6);
+			String address2 = ExcelUtils.getDataAt(i, 7);
+			String city = ExcelUtils.getDataAt(i, 8);
+			String state = ExcelUtils.getDataAt(i, 9);
+			String zip = ExcelUtils.getDataAt(i, 10);
+			String country = ExcelUtils.getDataAt(i, 11);
 			
 			registration.setLanguageById(registration.getRandomInteger(2, 0));
 			registration.setFavoriteById(registration.getRandomInteger(5, 0));
@@ -127,8 +127,6 @@ public class RegistrationTest {
 			
 			registration.saveInformations();
 			
-			// ako je prikazan save button znaci da je nakon pokusaja prosledjivanje informacija
-			// ostao na istoj strani 
 		    sa.assertTrue(registration.checkRegistration());
 			
 			
@@ -137,7 +135,7 @@ public class RegistrationTest {
 
 		sa.assertAll();
 		
-	}
+	}*/
 	
 	/*@Test(priority = 3)
 	public void registrationWithoutFirstNameTest() throws Exception {
