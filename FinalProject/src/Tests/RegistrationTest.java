@@ -98,7 +98,7 @@ public class RegistrationTest {
 		ExcelUtils excel = new ExcelUtils();
 		excel.setExcell(path);
 		// Worksheet users_without_password
-		excel.setWorkSheet(1);
+		excel.setWorkSheet(2);
 		
 		excel.setUniqueID();
 
