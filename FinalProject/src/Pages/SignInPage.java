@@ -68,47 +68,35 @@ public class SignInPage {
 		this.getSignOut().click();
 	}
 	
-	// Login failed message 
+	// Go back to login
+	public void goBack() {
+		this.clickOnSignOut();
+		this.clickOnSignIn();
+	}
+
+	// Login failed message
 	public WebElement getLoginFailedMessage() {
 		return this.driver.findElement(By.xpath(this.locators.getProperty("loginfailed_msg")));
 	}
 
-	
-	// Check if login is successful
-	public boolean checkLogin() {
-		boolean successful = false;
-		try {
-			if (this.getSignOut().isDisplayed()) {
-				successful = true;
-			}
-		} catch (Exception e) {
-			System.out.println(this.getLoginFailedMessage().getText());		
-		}
-		return successful;
-
-	}
-
 	// Fill login form
-	public void fillLogin() {
-		ExcelUtils excel = new ExcelUtils();
-		excel.setExcell(path);
-		excel.setWorkSheet(1);
+	public void setLogin(String username, String password) {
+		this.setUsername(username);
+		this.setPassword(password);
 
-		for (int i = 1; i < excel.getRowNumber(); i++) {
-
-			this.setUsername(excel.getDataAt(i, 0));
-			this.setPassword(excel.getDataAt(i, 1));
-		
-			this.clickOnLoginBtn();
-			
-			if(checkLogin()) {
-				this.clickOnSignOut();
-			}else {
-				break;
+	}
+	// Check if login is successful
+		public boolean checkLogin() {
+			boolean successful = false;
+			try {
+				if (this.getSignOut().isDisplayed()) {
+					successful = true;
+				}
+			} catch (Exception e) {
+				System.out.println(this.getLoginFailedMessage().getText());		
 			}
-			this.clickOnSignIn();
+			return successful;
 
 		}
-	}
 
 }

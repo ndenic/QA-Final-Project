@@ -1,5 +1,9 @@
 package Tests;
 
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeClass;
+import org.testng.AssertJUnit;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -59,7 +63,7 @@ public class CartTest {
 		for (int i = 1; i < excel.getRowNumber(); i++) {
 			
 			String itemID = excel.getDataAt(i, 0);
-			sa.assertTrue(cart.checkForItems(itemID));
+			AssertJUnit.assertTrue(cart.checkForItems(itemID));
 		
 		}
 		
@@ -78,7 +82,7 @@ public class CartTest {
 		
 		this.driver.manage().deleteCookieNamed(this.locators.getProperty("cookie"));
 		this.driver.navigate().refresh();
-		Assert.assertTrue(cart.cookieCheck());
+		AssertJUnit.assertTrue(cart.cookieCheck());
 	}
 	
 	@AfterClass

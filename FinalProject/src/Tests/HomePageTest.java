@@ -1,5 +1,9 @@
 package Tests;
 
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeClass;
+import org.testng.AssertJUnit;
 import static org.testng.Assert.assertTrue;
 
 import java.io.FileInputStream;
@@ -44,7 +48,7 @@ public class HomePageTest {
         HomePage homePage = new HomePage(driver, locators, waiter);
         homePage.enterPage();
         
-        assertTrue(homePage.mainImageDisplayed());
+        AssertJUnit.assertTrue(homePage.mainImageDisplayed());
 		
 	}
 	

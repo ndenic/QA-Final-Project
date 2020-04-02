@@ -1,5 +1,9 @@
 package Tests;
 
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeClass;
+import org.testng.AssertJUnit;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -80,7 +84,7 @@ public class RegistrationTest {
 					             city, state, zip, country);
 			
 			registration.saveInformations();
-			sa.assertTrue(registration.checkRegistration());
+			AssertJUnit.assertTrue(registration.checkRegistration());
 			this.driver.navigate().back();
 		}    
 
