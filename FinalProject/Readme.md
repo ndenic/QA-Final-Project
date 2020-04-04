@@ -3,6 +3,8 @@ Web test automation project using Eclipse IDE, Java, Apache POI, TestNG, Seleniu
 
 ## Test subject 
 JPetStore website https://petstore.octoperf.com/
+Browser : Google Chrome 80.0.3987.149
+OS : Windows 10 OS Version 1903
 
 ## Libraries and Frameworks
 
