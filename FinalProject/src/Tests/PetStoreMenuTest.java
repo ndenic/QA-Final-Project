@@ -3,22 +3,17 @@ package Tests;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
+
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.sql.Driver;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import Pages.HomePage;
@@ -28,15 +23,26 @@ public class PetStoreMenuTest {
 	private WebDriver driver;
 	private Properties locators;
 	private WebDriverWait waiter;
+	private final String locator = "petstore_url";
 
-	public void navigateToPage(String locator) {
-         this.driver.navigate().to(this.locators.getProperty(locator));
-	}
 
 	@BeforeClass
-	public void setup() throws FileNotFoundException, IOException {
-		System.setProperty("webdriver.chrome.driver", "driver-lib\\chromedriver.exe");
-		this.driver = new ChromeDriver();
+	@Parameters("browser")
+	public void setup(String browser) throws Exception {
+		
+		if(browser.equalsIgnoreCase("chrome") || browser.equalsIgnoreCase("google chrome")) {
+			System.setProperty("webdriver.chrome.driver", "driver-lib\\chromedriver.exe");
+			this.driver = new ChromeDriver();
+		}
+		else if(browser.equalsIgnoreCase("firefox") || browser.equalsIgnoreCase("mozzila")) {
+			System.setProperty("webdriver.gecko.driver", "driver-lib\\geckodriver.exe");
+			this.driver = new FirefoxDriver();
+		}
+	    else{
+			//If no browser passed throw exception
+			throw new Exception("Browser is not correct");
+		}
+		
 		this.locators = new Properties();
 		locators.load(new FileInputStream("config/pet_store_menu.properties"));
 		driver.manage().window().maximize();
@@ -46,7 +52,7 @@ public class PetStoreMenuTest {
 
 	@Test(priority = 1)
 	public void linksTest() throws Exception {
-		this.navigateToPage("petstore_url");
+		this.driver.navigate().to(this.locators.getProperty(locator));
 
 		SoftAssert sa = new SoftAssert();
 
@@ -64,7 +70,7 @@ public class PetStoreMenuTest {
 	
 	@Test(priority = 2)
 	public void menuContentTest() throws Exception{
-		this.navigateToPage("petstore_url");
+		this.driver.navigate().to(this.locators.getProperty(locator));
 		
 		SoftAssert sa = new SoftAssert();
 		
@@ -84,7 +90,7 @@ public class PetStoreMenuTest {
 
 	@Test(priority = 3)
 	public void leftSideNavTest() throws Exception {
-		this.navigateToPage("petstore_url");
+		this.driver.navigate().to(this.locators.getProperty(locator));
 		
 		HomePage homePage = new HomePage(driver, locators, waiter);
 		homePage.enterPage();

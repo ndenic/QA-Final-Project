@@ -3,21 +3,17 @@ package Tests;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import Pages.HomePage;
 import Pages.SignInPage;
 import Utils.ExcelUtils;
 
@@ -27,14 +23,22 @@ public class SignInTest {
 	private WebDriverWait waiter;
 	private final String path = "data/pet-store-data.xlsx";
 
-	public void navigateToPage(String locator) {
-		this.driver.navigate().to(this.locators.getProperty(locator));
-	}
 
 	@BeforeClass
-	public void setup() throws FileNotFoundException, IOException {
-		System.setProperty("webdriver.chrome.driver", "driver-lib\\chromedriver.exe");
-		this.driver = new ChromeDriver();
+	@Parameters("browser")
+	public void setup(String browser) throws Exception {
+		if(browser.equalsIgnoreCase("chrome") || browser.equalsIgnoreCase("google chrome")) {
+			System.setProperty("webdriver.chrome.driver", "driver-lib\\chromedriver.exe");
+			this.driver = new ChromeDriver();
+		}
+		else if(browser.equalsIgnoreCase("firefox") || browser.equalsIgnoreCase("mozzila")) {
+			System.setProperty("webdriver.gecko.driver", "driver-lib\\geckodriver.exe");
+			this.driver = new FirefoxDriver();
+		}
+	    else{
+			//If no browser passed throw exception
+			throw new Exception("Browser is not correct");
+		}
 		this.locators = new Properties();
 		locators.load(new FileInputStream("config/user.properties"));
 		driver.manage().window().maximize();
@@ -44,7 +48,7 @@ public class SignInTest {
 
 	@Test
 	public void loginTest() throws Exception {
-		this.navigateToPage("login_url");
+		this.driver.navigate().to(this.locators.getProperty("login_url"));
 
 		SoftAssert sa = new SoftAssert();
 
