@@ -3,7 +3,6 @@ package Tests;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeClass;
-import org.testng.AssertJUnit;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -56,8 +55,8 @@ public class PetStoreMenuTest {
 
 		PetStoreMenuPage petStore = new PetStoreMenuPage(driver, locators, waiter);
 
-		AssertJUnit.assertTrue(petStore.checkMenuContentLinks());
-		AssertJUnit.assertTrue(petStore.checkQucikMenuLinks());
+		sa.assertTrue(petStore.checkMenuContentLinks());
+		sa.assertTrue(petStore.checkQucikMenuLinks());
 
 		sa.assertAll();
 
@@ -74,9 +73,9 @@ public class PetStoreMenuTest {
 		
 		PetStoreMenuPage petStore = new PetStoreMenuPage(driver, locators, waiter);
 		
-		AssertJUnit.assertTrue(petStore.checkCart());
-		AssertJUnit.assertTrue(petStore.checkSignIn());
-		AssertJUnit.assertTrue(petStore.checkHelp());
+		sa.assertTrue(petStore.checkCart());
+		sa.assertTrue(petStore.checkSignIn());
+		sa.assertTrue(petStore.checkHelp());
 		
 		sa.assertAll();
 
@@ -94,7 +93,7 @@ public class PetStoreMenuTest {
 	
 		PetStoreMenuPage petStore = new PetStoreMenuPage(driver, locators, waiter);
 		
-		AssertJUnit.assertTrue(petStore.clickOnLeftNavItem(name));
+		Assert.assertTrue(petStore.clickOnLeftNavItem(name));
 
 	}
 
