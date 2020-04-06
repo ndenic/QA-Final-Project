@@ -33,24 +33,6 @@ public class CartPage {
 		return this.driver.findElements(By.xpath(this.locators.getProperty("cart_items_id")));
 	}
 	
-	// Add to cart everything from cart_item sheet pet-store-data.xlsx 
-	public void addToCart() {
-		ExcelUtils excel = new ExcelUtils();
-		excel.setExcell(path);
-		excel.setWorkSheet(0);
-		
-		StoreItemPage storeItem = new StoreItemPage(driver, locators, waiter);
-		
-		for (int i = 1; i < excel.getRowNumber(); i++) {
-			
-			String itemLink = excel.getDataAt(i, 1);
-			this.driver.navigate().to(itemLink);
-			storeItem.clickOnAddToCart();
-			
-		
-		}
-			
-	}
 	
 	// Check if product from cart_item sheet is successfully added
 	public boolean checkForItems(String ID) {

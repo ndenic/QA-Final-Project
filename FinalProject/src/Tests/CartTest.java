@@ -15,13 +15,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
 
 import Pages.CartPage;
+import Pages.StoreItemPage;
 import Utils.ExcelUtils;
 
 public class CartTest {
 	private WebDriver driver;
 	private Properties locators;
 	private WebDriverWait waiter;
-	private final String path = "data/pet-store-data.xlsx";
 
 	@BeforeClass
 	@Parameters("browser")
@@ -51,14 +51,23 @@ public class CartTest {
 		SoftAssert sa = new SoftAssert();
 		CartPage cart = new CartPage(driver, locators, waiter);
 		
-		cart.addToCart();
-		
-		cart.openCart();
-		
-		// check if all products are added in cart
 		ExcelUtils excel = new ExcelUtils();		
-		excel.setExcell(path);
-		excel.setWorkSheet(0);
+		ExcelUtils.setExcell(this.locators.getProperty("data"));
+		ExcelUtils.setWorkSheet(0);
+		
+		
+		StoreItemPage storeItem = new StoreItemPage(driver, locators, waiter);
+		
+		for (int i = 1; i < ExcelUtils.getRowNumber(); i++) {
+			
+			String itemLink = ExcelUtils.getDataAt(i, 1);
+			this.driver.navigate().to(itemLink);
+			storeItem.clickOnAddToCart();
+			
+		
+		}
+		
+		cart.openCart();	
 		
 		for (int i = 1; i < excel.getRowNumber(); i++) {
 			
@@ -76,7 +85,21 @@ public class CartTest {
 		SoftAssert sa = new SoftAssert();
 		CartPage cart = new CartPage(driver, locators, waiter);
 		
-		cart.addToCart();
+		ExcelUtils excel = new ExcelUtils();		
+		ExcelUtils.setExcell(this.locators.getProperty("cart_data"));
+		ExcelUtils.setWorkSheet(0);
+		
+		
+		StoreItemPage storeItem = new StoreItemPage(driver, locators, waiter);
+		
+		for (int i = 1; i < ExcelUtils.getRowNumber(); i++) {
+			
+			String itemLink = ExcelUtils.getDataAt(i, 1);
+			this.driver.navigate().to(itemLink);
+			storeItem.clickOnAddToCart();
+			
+		
+		}
 		
 		cart.openCart();
 		

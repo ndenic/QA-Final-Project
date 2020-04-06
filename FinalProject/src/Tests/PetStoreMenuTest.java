@@ -23,8 +23,6 @@ public class PetStoreMenuTest {
 	private WebDriver driver;
 	private Properties locators;
 	private WebDriverWait waiter;
-	private final String locator = "petstore_url";
-
 
 	@BeforeClass
 	@Parameters("browser")
@@ -52,7 +50,7 @@ public class PetStoreMenuTest {
 
 	@Test(priority = 1)
 	public void linksTest() throws Exception {
-		this.driver.navigate().to(this.locators.getProperty(locator));
+		this.driver.navigate().to(this.locators.getProperty("petstore_url"));
 
 		SoftAssert sa = new SoftAssert();
 
@@ -70,7 +68,7 @@ public class PetStoreMenuTest {
 	
 	@Test(priority = 2)
 	public void menuContentTest() throws Exception{
-		this.driver.navigate().to(this.locators.getProperty(locator));
+		this.driver.navigate().to(this.locators.getProperty("petstore_url"));
 		
 		SoftAssert sa = new SoftAssert();
 		
@@ -90,7 +88,7 @@ public class PetStoreMenuTest {
 
 	@Test(priority = 3)
 	public void leftSideNavTest() throws Exception {
-		this.driver.navigate().to(this.locators.getProperty(locator));
+		this.driver.navigate().to(this.locators.getProperty("petstore_url"));
 		
 		HomePage homePage = new HomePage(driver, locators, waiter);
 		homePage.enterPage();

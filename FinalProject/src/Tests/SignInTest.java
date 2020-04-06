@@ -21,8 +21,6 @@ public class SignInTest {
 	private WebDriver driver;
 	private Properties locators;
 	private WebDriverWait waiter;
-	private final String path = "data/pet-store-data.xlsx";
-
 
 	@BeforeClass
 	@Parameters("browser")
@@ -55,7 +53,7 @@ public class SignInTest {
 		SignInPage signIn = new SignInPage(driver, locators, waiter);
 
 		ExcelUtils excel = new ExcelUtils();
-		ExcelUtils.setExcell(path);
+		ExcelUtils.setExcell(this.locators.getProperty("data"));
 		ExcelUtils.setWorkSheet(1);
 
 		for (int i = 1; i < excel.getRowNumber(); i++) {
